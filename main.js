@@ -1,33 +1,34 @@
-import './style.css'
+import './style.css';
 
-import * as THREE from 'three';
+import { spinning3DCube } from './js/spinning-cube';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+// add tutorial progress here and mark isCurrent to the current tutorial,
+// add the tutorial's code in js/tutorial-title.js file
+// last active tutorial will be shown on page.
+const tutorialsMap = {
+  spinningCube: {
+    isCurrent: true,
+    func: spinning3DCube,
+  },
+};
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+function main() {
+  console.log('Running tutorial');
+  const tutorialsKeys = Object.keys(tutorialsMap);
+  let currentTutorial;
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+  tutorialsKeys.forEach(tutorialKey => {
+    const tutorial = tutorialsMap[tutorialKey];
+    if (tutorial.isCurrent) {
+      currentTutorial = tutorial;
+    }
+  });
 
-camera.position.z = 5;
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render(scene, camera);
+  if (currentTutorial) {
+    currentTutorial.func();
+  } else {
+    console.log('Noc current tutorial found.. Maybe all done?');
+  }
 }
 
-animate();
+main();
