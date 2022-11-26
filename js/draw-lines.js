@@ -2,9 +2,11 @@ import * as THREE from 'three';
 
 export function drawLines() {
   // setup renderer
-  const renderer = new THREE.WebGLRenderer();
+  const canvas = document.querySelector('#app');
+  const renderer = new THREE.WebGLRenderer({ canvas });
+  renderer.setPixelRatio(devicePixelRatio);
+
   renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
 
   // create camera
   const camera = new THREE.PerspectiveCamera(
