@@ -2,6 +2,7 @@ import './style.css';
 
 import { spinning3DCube } from './js/spinning-cube';
 import { drawLines } from './js/draw-lines';
+import { runPlaneGeometry } from './js/plane-geometry';
 
 // add tutorial progress here and mark isCurrent to the current tutorial,
 // add the tutorial's code in js/tutorial-title.js file
@@ -12,8 +13,12 @@ const tutorialsMap = {
     func: spinning3DCube,
   },
   drawLines: {
-    isCurrent: true,
+    isCurrent: false,
     func: drawLines,
+  },
+  planeGeometry: {
+    isCurrent: true,
+    func: runPlaneGeometry,
   },
 };
 
